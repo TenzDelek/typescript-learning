@@ -54,5 +54,5 @@ class SubUser extends User2 {
 const better = new User2("tenz@gmail", "tenzin");
 const appleEmail = better.getAppleEmail;
 console.log(appleEmail);
-better.courseCount = 3;
-console.log(better.courseCount);
+better.courseCount = 3; //setter
+console.log(better.courseCount); //getter
