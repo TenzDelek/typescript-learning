@@ -6,6 +6,8 @@ interface TakePhoto {
 
 interface story{
     createstory():void
+    //or
+    createstory:()=>void
 }
 
 //class and interface use implements
