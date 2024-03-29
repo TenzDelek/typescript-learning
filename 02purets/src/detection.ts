@@ -42,12 +42,44 @@ interface Admin {
   isAdmin: boolean;
 }
 function isAdminAccount(account: User | Admin) {
-    if ("isAdmin" in account) //the isadmin is only in Admin interface so it check whether it is in that
-    {
-        return account.isAdmin //acount is 100% admin now
-    }
-    return account.email
+  if ("isAdmin" in account) {
+    //the isadmin is only in Admin interface so it check whether it is in that
+    return account.isAdmin; //acount is 100% admin now
+  }
+  return account.email;
 }
 
 //now in above try to hover on each account the first/second will show user or admin
 //the third will show admin and the last will show user
+
+//instance of narrowing--------------------
+
+function logval(x: Date | string) {
+  if (x instanceof Date) //instance ofcan only be used where new key word is applicable
+  {
+    console.log(x.toUTCString());
+  } else {
+    console.log(x.toLowerCase());
+  }
+}
+
+
+type Fish ={swim:()=>void}
+type Bird={fly():void}
+
+function isFish(pet:Fish | Bird):pet is Fish //if the return from below is true then pet is Fish
+{
+   return (pet as Fish).swim !== undefined
+}
+function getFood(pets:Fish| Bird){
+    if(isFish(pets))
+    {
+      pets
+      return "fish food"
+    }
+    else{
+      pets
+      return "bird food"
+    }
+
+}
