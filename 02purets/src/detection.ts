@@ -55,31 +55,72 @@ function isAdminAccount(account: User | Admin) {
 //instance of narrowing--------------------
 
 function logval(x: Date | string) {
-  if (x instanceof Date) //instance ofcan only be used where new key word is applicable
-  {
+  if (x instanceof Date) {
+    //instance ofcan only be used where new key word is applicable
     console.log(x.toUTCString());
   } else {
     console.log(x.toLowerCase());
   }
 }
 
+type Fish = { swim: () => void };
+type Bird = { fly(): void };
 
-type Fish ={swim:()=>void}
-type Bird={fly():void}
-
-function isFish(pet:Fish | Bird):pet is Fish //if the return from below is true then pet is Fish
-{
-   return (pet as Fish).swim !== undefined
+function isFish(pet: Fish | Bird): pet is Fish {
+  //if the return from below is true then pet is Fish
+  return (pet as Fish).swim !== undefined;
 }
-function getFood(pets:Fish| Bird){
-    if(isFish(pets))
-    {
-      pets
-      return "fish food"
-    }
-    else{
-      pets
-      return "bird food"
-    }
+function getFood(pets: Fish | Bird) {
+  if (isFish(pets)) {
+    pets; //here the pet is 100% fish
+    return "fish food";
+  } else {
+    pets;
+    return "bird food";
+  }
+}
 
+//discrimination union--------------
+//simply just discriminating hahaha based on
+//here we did on kind
+interface Circle{
+  kind:"circle",
+  radius:number
+}
+interface Square{
+  kind:"square",
+  side: number
+}
+interface Rectangle{
+  kind:"rectangle",
+  length:number,
+  breath:number
+}
+
+type Shape=Circle | Square
+function gettrueshape(shape:Shape)
+{
+  if(shape.kind==="circle") //as we have a common ground call kind it make us easier to narrow down
+  {
+    return Math.PI * shape.radius **2
+  }
+  return shape.side *shape.side
+}
+
+//also we can make use of switch
+function getArea(shape:Shape)
+{
+    switch(shape.kind){
+      case "circle":
+        return shape.radius
+      case "square":
+        return shape.side
+      default: //not suppose to run - so when some case like rectangle comes it havent been check yet
+      //so the default shouldnt be running ,but it is as rectangle is not handle, so it raised when every
+      //case are not handled (just a checker type to make sure every case are handled)
+        //exhaustive checking------------------
+        //just a standard way to write for default
+        const defaultshape:never=shape
+        return defaultshape
+    }
 }
