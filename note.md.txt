@@ -1,0 +1,7 @@
+the gitbash terminal with the admin privialege we can run npm i -g typescript which will
+download the typescript globally, 
+now the tsc command can be used
+
+to get the tsconfig.json
+type -> tsc --init
+npm init -y for node
